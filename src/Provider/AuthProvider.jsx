@@ -57,14 +57,14 @@ const AuthProvider = ({ children }) => {
     })
   }
   // Get token from server
-//   const getToken = async email => {
-//     const { data } = await axios.post(
-//       `${import.meta.env.VITE_API_URL}/jwt`,
-//       { email },
-//       { withCredentials: true }
-//     )
-//     return data
-//   }
+  const getToken = async email => {
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/jwt`,
+      { email },
+      { withCredentials: true }
+    )
+    return data
+  }
 
   // save user
 //   const saveUser = async user => {
@@ -86,7 +86,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser)
       if (currentUser) {
         getToken(currentUser.email)
-        saveUser(currentUser)
+        // saveUser(currentUser)
       }
       setLoading(false)
     })
