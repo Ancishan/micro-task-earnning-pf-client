@@ -1,10 +1,16 @@
-import Login from "./Authentication/Login";
+import HomeAnimation from "../../Component/HomeAnimation";
+import useAuth from "../../hooks/UseAuth";
+import Home from "../Home";
+
 
 
 const HomePage = () => {
+    const {user} = useAuth();
     return (
         <div>
-            <Login></Login>
+            {
+               user? <Home></Home> : <HomeAnimation></HomeAnimation>
+            }
         </div>
     );
 };

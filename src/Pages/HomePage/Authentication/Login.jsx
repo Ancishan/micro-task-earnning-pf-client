@@ -1,64 +1,66 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
-import useAuth from '../../../hooks/UseAuth'
-import toast from 'react-hot-toast'
-import { TbFidgetSpinner } from 'react-icons/tb'
-import { useState } from 'react'
-import img from '../../../assets/loginimg.png'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../../hooks/UseAuth';
+import toast from 'react-hot-toast';
+import { TbFidgetSpinner } from 'react-icons/tb';
+import { useState } from 'react';
+import img from '../../../assets/loginimg.png';
 
 const Login = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
-    const from = location?.state || '/'
-    const { signInWithGoogle, signIn, loading, setLoading, resetPassword } =
-        useAuth()
-    const [email, setEmail] = useState('')
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state || '/';
+    const { signInWithGoogle, signIn, loading, setLoading, resetPassword } = useAuth();
+    const [email, setEmail] = useState('');
 
-    const handleSubmit = async e => {
-        e.preventDefault()
-        const form = e.target
-        const email = form.email.value
-        const password = form.password.value
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
 
         try {
-            setLoading(true)
-            // 1. sign in user
-            await signIn(email, password)
-            navigate(from)
-            toast.success('Signup Successful')
+            setLoading(true);
+            // 1. Sign in user
+            await signIn(email, password);
+            navigate(from);
+            toast.success('Login Successful');
         } catch (err) {
-            console.log(err)
-            toast.error(err.message)
-            setLoading(false)
+            console.log(err);
+            toast.error(err.message);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     const handleResetPassword = async () => {
-        if (!email) return toast.error('Please write your email first!')
+        if (!email) return toast.error('Please write your email first!');
         try {
-            await resetPassword(email)
-            toast.success('Request Success! Check your email for further process...')
-            setLoading(false)
+            setLoading(true);
+            await resetPassword(email);
+            toast.success('Request Success! Check your email for further process...');
         } catch (err) {
-            console.log(err)
-            toast.error(err.message)
-            setLoading(false)
+            console.log(err);
+            toast.error(err.message);
+        } finally {
+            setLoading(false);
         }
-        console.log(email)
-    }
+    };
 
-    // handle google signin
+    // Handle Google sign-in
     const handleGoogleSignIn = async () => {
         try {
-            await signInWithGoogle()
-
-            navigate(from)
-            toast.success('Signup Successful')
+            setLoading(true);
+            await signInWithGoogle();
+            navigate(from);
+            toast.success('Login Successful');
         } catch (err) {
-            console.log(err)
-            toast.error(err.message)
+            console.log(err);
+            toast.error(err.message);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="flex flex-col md:flex-row justify-between items-center w-full py-8">
@@ -154,7 +156,7 @@ const Login = () => {
                 </p>
             </div>
         </div>
-    )
+    );
 }
 
-export default Login
+export default Login;

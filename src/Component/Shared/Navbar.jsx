@@ -20,7 +20,7 @@ const NavBar = () => {
                         <Link to="/dashboard">Dashboard</Link>
                     </li>
                     <li>
-                        <button onClick={handleLogOut} className="btn btn-ghost">Logout</button>
+                        <button onClick={handleLogOut} className="t">Logout</button>
                     </li>
                 </>
             ) : (
@@ -30,9 +30,6 @@ const NavBar = () => {
                     </li>
                     <li>
                         <Link to="/register">Register</Link>
-                    </li>
-                    <li>
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">Watch Demo</a>
                     </li>
                 </>
             )}
@@ -48,9 +45,6 @@ const NavBar = () => {
             </div>
             <div className="navbar-center">
                 <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost">
-                        Menu
-                    </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-700 rounded-box w-52">
                         {navOptions}
                     </ul>
@@ -66,7 +60,7 @@ const NavBar = () => {
                                     <img src={user.photoURL || icon} alt="User Avatar" />
                                 </div>
                             </label>
-                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-500 rounded-box w-52">
                                 {navOptions}
                             </ul>
                         </div>
