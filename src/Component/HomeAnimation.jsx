@@ -53,10 +53,11 @@ const HomeAnimation = () => {
                         cursor={false}
                     />
                     <h2 className='pt-12 pb-8 text-green-400 text-4xl font-bold'>Join Us</h2>
-                    <h2 className='text-green-400 text-4xl font-bold'><Link to='/login'>Create Your Profile</Link></h2>
+                    <h2 className='text-green-400 text-4xl font-bold'>Create Your Profile <br /><Link to='/login' className='btn text-green-500 text-3xl mt-3'>Start</Link></h2>
                 </div>
                
             </div>
+                        
         </div>
     );
 };

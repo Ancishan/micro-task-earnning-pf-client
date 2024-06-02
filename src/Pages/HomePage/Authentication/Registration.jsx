@@ -1,78 +1,85 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
-import useAuth from '../../../hooks/UseAuth'
-import axios from 'axios'
-import toast from 'react-hot-toast'
-import { TbFidgetSpinner } from 'react-icons/tb'
-import { imageUpload } from '../../../api/utlis'
-import { Helmet } from 'react-helmet-async'
-
+import { Link, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../../hooks/UseAuth';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { TbFidgetSpinner } from 'react-icons/tb';
+import { imageUpload } from '../../../api/utlis';
+import { Helmet } from 'react-helmet-async';
+import { useState } from 'react';
 
 const Registration = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const {
         createUser,
         signInWithGoogle,
         updateUserProfile,
         loading,
         setLoading,
-    } = useAuth()
+    } = useAuth();
+    
+    const [role, setRole] = useState('Worker');
 
     const handleSubmit = async e => {
-        e.preventDefault()
-        const form = e.target
-        const name = form.name.value
-        const email = form.email.value
-        const password = form.password.value
-        const image = form.image.files[0]
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const image = form.image.files[0];
 
         try {
-            setLoading(true)
+            setLoading(true);
             // 1. Upload image and get image url
-            const image_url = await imageUpload(image)
-            console.log(image_url)
-            //2. User Registration
-            const result = await createUser(email, password)
-            console.log(result)
+            const image_url = await imageUpload(image);
+            console.log(image_url);
+            // 2. User Registration
+            const result = await createUser(email, password);
+            console.log(result);
 
-            // 3. Save username and photo in firebase
-            await updateUserProfile(name, image_url)
-            navigate('/')
-            toast.success('Signup Successful')
+            // 3. Save username, photo, and role in firebase
+            await updateUserProfile(name, image_url);
+            
+            // Optionally, you can send user info including role to your backend
+            await axios.post('/api/users', { name, email, role, image_url });
+            navigate('/');
+            toast.success('Signup Successful');
         } catch (err) {
-            console.log(err)
-            toast.error(err.message)
+            console.log(err);
+            toast.error(err.message);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     // handle google signin
     const handleGoogleSignIn = async () => {
         try {
-            await signInWithGoogle()
+            await signInWithGoogle();
 
-            navigate('/')
-            toast.success('Signup Successful')
+            navigate('/');
+            toast.success('Signup Successful');
         } catch (err) {
-            console.log(err)
-            toast.error(err.message)
+            console.log(err);
+            toast.error(err.message);
         }
-    }
+    };
 
     return (
         <>
             <Helmet>
-                <title>Bistro Boss | Login</title>
+                <title>MTEP | Sign Up</title>
             </Helmet>
             <div className='flex justify-center items-center min-h-screen'>
                 <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
                     <div className='mb-8 text-center'>
                         <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
-                        <p className='text-sm text-gray-400'>Welcome to StayVista</p>
+                        <p className='text-sm text-gray-400'>Welcome to Micro Task Earning Platform</p>
                     </div>
                     <form onSubmit={handleSubmit} className='space-y-6'>
                         <div className='space-y-4'>
                             <div>
-                                <label htmlFor='email' className='block mb-2 text-sm'>
+                                <label htmlFor='name' className='block mb-2 text-sm'>
                                     Name
                                 </label>
                                 <input
@@ -111,11 +118,9 @@ const Registration = () => {
                                 />
                             </div>
                             <div>
-                                <div className='flex justify-between'>
-                                    <label htmlFor='password' className='text-sm mb-2'>
-                                        Password
-                                    </label>
-                                </div>
+                                <label htmlFor='password' className='block mb-2 text-sm'>
+                                    Password
+                                </label>
                                 <input
                                     type='password'
                                     name='password'
@@ -126,6 +131,22 @@ const Registration = () => {
                                     className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
                                 />
                             </div>
+                            <div>
+                                <label htmlFor='role' className='block mb-2 text-sm'>
+                                    Select Role:
+                                </label>
+                                <select
+                                    id='role'
+                                    name='role'
+                                    className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                >
+                                    <option value='Worker'>Worker</option>
+                                    <option value='TaskCreator'>TaskCreator</option>
+                                </select>
+                            </div>
+                           
                         </div>
 
                         <div>
@@ -155,7 +176,6 @@ const Registration = () => {
                         className='disabled:cursor-not-allowed flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
                     >
                         <FcGoogle size={32} />
-
                         <p>Continue with Google</p>
                     </button>
                     <p className='px-6 text-sm text-center text-gray-400'>
@@ -171,7 +191,7 @@ const Registration = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Registration
+export default Registration;
