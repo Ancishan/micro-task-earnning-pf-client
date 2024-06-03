@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import useAuth from '../../../hooks/UseAuth';
 import toast from 'react-hot-toast';
 import { TbFidgetSpinner } from 'react-icons/tb';
@@ -7,12 +8,15 @@ import { useState } from 'react';
 import img from '../../../assets/loginimg.png';
 import { Helmet } from 'react-helmet-async';
 
+
 const Login = () => {
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state || '/';
     const { signInWithGoogle, signIn, loading, setLoading, resetPassword } = useAuth();
     const [email, setEmail] = useState('');
+   
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,18 +55,23 @@ const Login = () => {
     // Handle Google sign-in
     const handleGoogleSignIn = async () => {
         try {
-            setLoading(true);
-            await signInWithGoogle();
-            navigate(from);
-            toast.success('Login Successful');
+            const result = await signInWithGoogle();
+            const user = result.user;
+            const name = user.displayName;
+            const email = user.email;
+            const image_url = user.photoURL;
+            const role = 'Worker';
+    
+            // Send user info including role to your backend
+            await axiosPublic.post('/users', { name, email, role, image_url });
+    
+            navigate('/');
+            toast.success('Signup Successful');
         } catch (err) {
             console.log(err);
             toast.error(err.message);
-        } finally {
-            setLoading(false);
         }
     };
-
     return (
         <>
             <Helmet>
