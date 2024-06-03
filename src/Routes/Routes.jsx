@@ -4,6 +4,9 @@ import HomePage from '../Pages/HomePage/HomePage'
 import Login from '../Pages/HomePage/Authentication/Login'
 import Registration from '../Pages/HomePage/Authentication/Registration'
 import Home from '../Pages/Home'
+import Dashboard from '../Dashboard/Dashboard'
+import TaskCreatorHome from '../Dashboard/TaskCreator/TaskCreatorHome'
+import WorkerHome from '../Dashboard/Worker/WorkerHome'
 
 
 export const router = createBrowserRouter([
@@ -28,6 +31,20 @@ export const router = createBrowserRouter([
                 path:'/register',
                 element:<Registration></Registration>
             },
+        ]
+    },
+    {
+        path:'/dashboard',
+        element:<Dashboard></Dashboard>,
+        children:[
+            {
+                path:'workerHome',
+                element:<WorkerHome></WorkerHome>
+            },
+            {
+                path:'taskCreatorHome',
+                element:<TaskCreatorHome></TaskCreatorHome>,
+            }
         ]
     }
 

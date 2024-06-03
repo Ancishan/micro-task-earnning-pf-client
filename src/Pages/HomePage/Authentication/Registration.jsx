@@ -1,12 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import { useAuth } from '../../../hooks/UseAuth';
+import useAuth from '../../../hooks/UseAuth';
 import toast from 'react-hot-toast';
 import { TbFidgetSpinner } from 'react-icons/tb';
 import { imageUpload } from '../../../api/utlis';
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+
 
 const Registration = () => {
   const navigate = useNavigate();
