@@ -1,13 +1,13 @@
-// NavBar.js
-
 import { Link } from 'react-router-dom';
 import useRole from '../../hooks/useRole';
 import useAuth from '../../hooks/UseAuth';
 import logoimg from '../../assets/images.png';
 import icon from '../../assets/placeholder.jpg';
+import useAdmin from '../../Dashboard/Admin/useAdmin';
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
+  const [isAdmin] = useAdmin(); // Get isAdmin state
   const [role, isLoading] = useRole();
 
   const handleLogOut = () => {
@@ -36,6 +36,12 @@ const NavBar = () => {
                 {role === 'Worker' && (
                   <li>
                     <Link to="/dashboard/workerHome">Worker Dashboard</Link>
+                  </li>
+                )}
+                {/* Conditionally render admin-related links if user is admin */}
+                {isAdmin && (
+                  <li>
+                    <Link to="/dashboard/adminHome">Admin Dashboard</Link>
                   </li>
                 )}
                 <li>
@@ -71,9 +77,7 @@ const NavBar = () => {
                     <li>
                       <Link to="/dashboard/taskCreatorHome">Task Creator Dashboard</Link>
                     </li>
-                    <li>
-                      <Link to="/dashboard/addItems">Add Items</Link>
-                    </li>
+                   
                   </>
                 )}
                 {role === 'Worker' && (

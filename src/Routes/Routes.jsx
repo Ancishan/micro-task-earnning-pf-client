@@ -7,6 +7,8 @@ import Home from '../Pages/Home'
 import Dashboard from '../Dashboard/Dashboard'
 import TaskCreatorHome from '../Dashboard/TaskCreator/TaskCreatorHome'
 import WorkerHome from '../Dashboard/Worker/WorkerHome'
+import AdminHome from '../Dashboard/Admin/AdminHome'
+import AddTask from '../Dashboard/TaskCreator/AddTask'
 
 
 export const router = createBrowserRouter([
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
             {
                 path:'taskCreatorHome',
                 element:<TaskCreatorHome></TaskCreatorHome>,
+            },
+            {
+                path:'addtask',
+                element:<AddTask></AddTask>
+            },
+            {
+                path:'adminHome',
+                element:<AdminHome></AdminHome>
             }
         ]
     }

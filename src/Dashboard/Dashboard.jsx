@@ -1,7 +1,7 @@
-// Dashboard.js
 import { NavLink, Outlet } from 'react-router-dom';
 import useRole from '../hooks/useRole';
-// import useAuth from '../../hooks/UseAuth';
+import logoimg from '../assets/images.png';
+
 
 
 const Dashboard = () => {
@@ -9,7 +9,8 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      <div className="w-64 min-h-screen bg-orange-400">
+      <div className="w-64 min-h-screen bg-slate-100">
+        <img src={logoimg} alt="" />
         <ul className="menu p-4">
           {role === 'TaskCreator' && (
             <>
@@ -17,13 +18,18 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/taskCreatorHome">Task Creator Home</NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/addItems">Add Items</NavLink>
+                <NavLink to="/dashboard/addtask">Add Task</NavLink>
               </li>
             </>
           )}
           {role === 'Worker' && (
             <li>
               <NavLink to="/dashboard/userHome">User Home</NavLink>
+            </li>
+          )}
+          {role === 'admin' && (
+            <li>
+              <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
             </li>
           )}
         </ul>
