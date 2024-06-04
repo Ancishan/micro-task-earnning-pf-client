@@ -1,8 +1,10 @@
 import  { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { imageUpload } from '../../api/utlis';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const AddTask = () => {
+    const axiosPublic = useAxiosPublic();
   const [taskData, setTaskData] = useState({
     task_title: '',
     task_detail: '',
@@ -31,7 +33,7 @@ const AddTask = () => {
         taskData.task_image_url = imageUrl;
       }
 
-      const response = await axios.post('http://localhost:8000/tasks', taskData); // Use the correct server URL and port
+      const response = await axiosPublic.post('/tasks', taskData); // Use the correct server URL and port
       console.log('Task added successfully:', response.data);
     } catch (error) {
       console.error('Error adding task:', error);
