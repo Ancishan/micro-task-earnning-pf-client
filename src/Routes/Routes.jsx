@@ -10,6 +10,7 @@ import WorkerHome from '../Dashboard/Worker/WorkerHome'
 import AdminHome from '../Dashboard/Admin/AdminHome'
 import AddTask from '../Dashboard/TaskCreator/AddTask'
 import MyTask from '../Dashboard/TaskCreator/MyTask'
+import TaskList from '../Dashboard/Worker/TaskList'
 
 
 export const router = createBrowserRouter([
@@ -44,6 +45,12 @@ export const router = createBrowserRouter([
                 path:'workerHome',
                 element:<WorkerHome></WorkerHome>
             },
+            {
+                path:'taskList',
+                element:<TaskList></TaskList>,
+                loader:() => fetch('http://localhost:8000/tasks'),
+            }
+            ,
             {
                 path:'taskCreatorHome',
                 element:<TaskCreatorHome></TaskCreatorHome>,

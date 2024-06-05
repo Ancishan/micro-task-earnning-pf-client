@@ -1,6 +1,7 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import useRole from '../hooks/useRole';
 import logoimg from '../assets/images.png';
+import { FaHome } from 'react-icons/fa';
 
 
 
@@ -26,9 +27,14 @@ const Dashboard = () => {
             </>
           )}
           {role === 'Worker' && (
-            <li>
-              <NavLink to="/dashboard/workerHome">Worker Home</NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/dashboard/workerHome">Worker Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/taskList">Task List</NavLink>
+              </li>
+            </>
           )}
           {role === 'admin' && (
             <li>
@@ -36,6 +42,8 @@ const Dashboard = () => {
             </li>
           )}
         </ul>
+        <hr />
+        <Link className='flex gap-3 items-center mt-4 ml-4' to='/'><FaHome></FaHome> Home</Link>
       </div>
       <div className="flex-1 p-8">
         <Outlet />
