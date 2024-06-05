@@ -3,9 +3,8 @@ import { useParams } from 'react-router-dom';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useAuth from '../../hooks/UseAuth';
 
-
 const TaskDetails = () => {
-    const { user } = useAuth(); // Correctly destructuring user from useAuth
+    const { user } = useAuth(); 
     const axiosPublic = useAxiosPublic();
     const { id } = useParams();
     const [task, setTask] = useState(null);
@@ -40,9 +39,9 @@ const TaskDetails = () => {
             task_detail: task.task_detail,
             task_img_url: task.task_image_url,
             payable_amount: task.payable_amount,
-            worker_email: user.email, // Replace with actual worker email
+            worker_email: user.email, 
             submission_details: submissionDetails,
-            worker_name: user.displayName, // Replace with actual worker name
+            worker_name: user.displayName, 
             creator_name: task.user_name,
             creator_email: task.createdBy,
             current_date: new Date().toISOString(),
