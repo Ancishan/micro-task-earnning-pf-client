@@ -1,9 +1,10 @@
+import TaskCreatorHome from "../TaskCreator/TaskCreatorHome";
 
 
 const WorkerHome = () => {
     return (
         <div>
-            <h2>workerHome</h2>
+            <TaskCreatorHome></TaskCreatorHome>
         </div>
     );
 };

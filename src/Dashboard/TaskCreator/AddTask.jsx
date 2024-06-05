@@ -2,8 +2,10 @@ import  { useState } from 'react';
 // import axios from 'axios';
 import { imageUpload } from '../../api/utlis';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useAuth from '../../hooks/UseAuth';
 
 const AddTask = () => {
+  const {user} = useAuth();
     const axiosPublic = useAxiosPublic();
   const [taskData, setTaskData] = useState({
     task_title: '',
@@ -32,7 +34,8 @@ const AddTask = () => {
         const imageUrl = await imageUpload(image);
         taskData.task_image_url = imageUrl;
       }
-
+      const userEmail = user?.email; // Replace with the actual user's email
+      taskData.user_email = userEmail;
       const response = await axiosPublic.post('/tasks', taskData); // Use the correct server URL and port
       console.log('Task added successfully:', response.data);
     } catch (error) {

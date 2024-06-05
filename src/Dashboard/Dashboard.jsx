@@ -20,11 +20,14 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/addtask">Add Task</NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/myTask">My Task</NavLink>
+              </li>
             </>
           )}
           {role === 'Worker' && (
             <li>
-              <NavLink to="/dashboard/userHome">User Home</NavLink>
+              <NavLink to="/dashboard/workerHome">Worker Home</NavLink>
             </li>
           )}
           {role === 'admin' && (

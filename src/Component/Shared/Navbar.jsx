@@ -72,7 +72,7 @@ const NavBar = () => {
                 )}
                 {role === 'Worker' && (
                   <li>
-                    <Link to="/dashboard/userHome">User Home</Link>
+                    <Link to="/dashboard/workerHome">Worker Home</Link>
                   </li>
                 )}
                 <li>

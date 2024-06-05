@@ -9,6 +9,7 @@ import TaskCreatorHome from '../Dashboard/TaskCreator/TaskCreatorHome'
 import WorkerHome from '../Dashboard/Worker/WorkerHome'
 import AdminHome from '../Dashboard/Admin/AdminHome'
 import AddTask from '../Dashboard/TaskCreator/AddTask'
+import MyTask from '../Dashboard/TaskCreator/MyTask'
 
 
 export const router = createBrowserRouter([
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
             {
                 path:'addtask',
                 element:<AddTask></AddTask>
+            },
+            {
+                path:'myTask',
+                element:<MyTask></MyTask>,
             },
             {
                 path:'adminHome',

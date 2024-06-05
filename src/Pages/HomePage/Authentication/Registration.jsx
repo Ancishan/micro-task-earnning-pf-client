@@ -137,7 +137,7 @@ const Registration = () => {
                   className="select select-bordered w-full"
                 >
                   <option>Worker</option>
-                  <option>Employer</option>
+                  <option>TaskCreator</option>
                 </select>
               </div>
             </div>
