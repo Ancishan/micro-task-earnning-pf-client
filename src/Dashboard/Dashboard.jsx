@@ -3,15 +3,13 @@ import useRole from '../hooks/useRole';
 import logoimg from '../assets/images.png';
 import { FaHome } from 'react-icons/fa';
 
-
-
 const Dashboard = () => {
   const [role] = useRole();
 
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-slate-100">
-        <img src={logoimg} alt="" />
+        <img src={logoimg} alt="Logo" />
         <ul className="menu p-4">
           {role === 'TaskCreator' && (
             <>
@@ -34,6 +32,9 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/taskList">Task List</NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/mySubmission">My Submission</NavLink>
+              </li>
             </>
           )}
           {role === 'admin' && (
@@ -43,7 +44,7 @@ const Dashboard = () => {
           )}
         </ul>
         <hr />
-        <Link className='flex gap-3 items-center mt-4 ml-4' to='/'><FaHome></FaHome> Home</Link>
+        <Link className='flex gap-3 items-center mt-4 ml-4' to='/'><FaHome /> Home</Link>
       </div>
       <div className="flex-1 p-8">
         <Outlet />

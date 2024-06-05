@@ -3,17 +3,19 @@ import  { useState } from 'react';
 import { imageUpload } from '../../api/utlis';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useAuth from '../../hooks/UseAuth';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AddTask = () => {
-  const {user} = useAuth();
+   const {user} = useAuth();
     const axiosPublic = useAxiosPublic();
-  const [taskData, setTaskData] = useState({
+    const navigate = useNavigate();
+   const [taskData, setTaskData] = useState({
     task_title: '',
     task_detail: '',
     task_quantity: 0,
     payable_amount: 0,
     completion_date: '',
-    submission_info: '',
     task_image_url: ''
   });
   const [image, setImage] = useState(null);
@@ -36,8 +38,11 @@ const AddTask = () => {
       }
       const userEmail = user?.email; // Replace with the actual user's email
       taskData.user_email = userEmail;
+      const userDisplayName = user?.displayName;
+      taskData.user_name = userDisplayName;
       const response = await axiosPublic.post('/tasks', taskData); // Use the correct server URL and port
-      console.log('Task added successfully:', response.data);
+      toast.success('Task added successfully:', response.data);
+      navigate('/myTask')
     } catch (error) {
       console.error('Error adding task:', error);
     }
@@ -109,18 +114,6 @@ const AddTask = () => {
             onChange={handleChange}
             className="input input-bordered w-full"
           />
-        </div>
-
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Submission Info</span>
-          </label>
-          <textarea
-            name="submission_info"
-            value={taskData.submission_info}
-            onChange={handleChange}
-            className="textarea textarea-bordered w-full"
-          ></textarea>
         </div>
 
         <div className="form-control">
