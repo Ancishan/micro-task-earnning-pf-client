@@ -11,6 +11,7 @@ const TaskDetails = () => {
     const [submissionDetails, setSubmissionDetails] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [alreadySubmitted, setAlreadySubmitted] = useState(false);
 
     useEffect(() => {
         const fetchTask = async () => {
@@ -24,8 +25,23 @@ const TaskDetails = () => {
             }
         };
 
+        const checkSubmission = async () => {
+            try {
+                const response = await axiosPublic.get('/submissions/exists', {
+                    params: { task_id: id, worker_email: user.email }
+                });
+                setAlreadySubmitted(response.data.exists);
+            } catch (error) {
+                console.error('Error checking submission:', error);
+            }
+        };
+
+        if (user && user.email) {
+            checkSubmission();
+        }
+
         fetchTask();
-    }, [id, axiosPublic]);
+    }, [id, axiosPublic, user]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,6 +66,7 @@ const TaskDetails = () => {
         try {
             await axiosPublic.post('/submissions', submission);
             alert('Submission Successful');
+            setAlreadySubmitted(true); // Disable the button after successful submission
         } catch (error) {
             console.error('Error submitting task:', error);
         }
@@ -77,9 +94,12 @@ const TaskDetails = () => {
                                 placeholder="Enter your submission details"
                                 required
                                 className="textarea textarea-bordered w-full"
+                                disabled={alreadySubmitted} // Disable the textarea if already submitted
                             />
                             <div className="card-actions justify-end">
-                                <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="submit" className="btn btn-primary" disabled={alreadySubmitted}>
+                                    {alreadySubmitted ? 'Already Submitted' : 'Submit'}
+                                </button>
                             </div>
                         </form>
                     </div>
