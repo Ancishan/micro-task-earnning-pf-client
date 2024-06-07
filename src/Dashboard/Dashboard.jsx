@@ -2,9 +2,11 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 import useRole from '../hooks/useRole';
 import logoimg from '../assets/images.png';
 import { FaHome } from 'react-icons/fa';
+import useAdmin from './Admin/useAdmin';
 
 const Dashboard = () => {
   const [role] = useRole();
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">
@@ -42,7 +44,7 @@ const Dashboard = () => {
           )}
           {role === 'admin' && (
             <li>
-              <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
+              <NavLink to="/dashboard/adminHome">User List</NavLink>
             </li>
           )}
         </ul>

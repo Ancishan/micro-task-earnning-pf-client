@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useAuth from '../../hooks/UseAuth';
-import CheckOutForm from '../../hooks/Payment/CheckOutForm';
+import { Elements } from '@stripe/react-stripe-js'; // Import Elements from @stripe/react-stripe-js
+import CheckOutForm from '../Payment/CheckOutForm'; // Import the CheckOutForm component
+import { loadStripe } from '@stripe/stripe-js';
 
+const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK); 
 
 const TaskToReview = () => {
     const { user } = useAuth();
@@ -79,7 +82,9 @@ const TaskToReview = () => {
             {selectedSubmission && ( // Render the payment method when a submission is selected
                 <div>
                     <h2>Payment Method</h2>
-                    <CheckOutForm amount={selectedSubmission.payableAmount} />
+                    <Elements stripe={stripePromise}>
+                        <CheckOutForm amount={selectedSubmission.payableAmount} />
+                    </Elements>
                 </div>
             )}
         </div>

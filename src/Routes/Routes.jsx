@@ -14,6 +14,8 @@ import TaskList from '../Dashboard/Worker/TaskList';
 import TaskDetails from '../Dashboard/Worker/TaskDetails';
 import MySubmission from '../Dashboard/Worker/MySubmission';
 import TaskToReview from '../Dashboard/TaskCreator/TaskToReview';
+import Payment from '../hooks/Payment/Payment';
+import AdminUsers from '../Dashboard/Admin/AdminUsers';
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +58,10 @@ export const router = createBrowserRouter([
         element: <TaskDetails />,
       },
       {
+        path: 'payment',
+        element: <Payment/>,
+      },
+      {
         path: 'mySubmission',
         element: <MySubmission />,
       },
@@ -77,8 +83,9 @@ export const router = createBrowserRouter([
       },
       {
         path: 'adminHome',
-        element: <AdminHome />,
-      },
+        element: <AdminHome />
+      }
+      
     ],
   },
 ]);

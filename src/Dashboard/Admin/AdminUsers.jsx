@@ -1,36 +1,38 @@
-import { useEffect, useState } from 'react';
-
-
+// AdminUsers.jsx
+import  { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/UseAuth';
-import useAxiosPublic from '../../hooks/useAxiosPublic';
+import axios from 'axios';
 
-const AdminHome = () => {
+const AdminUsers = () => {
   const [users, setUsers] = useState([]);
-  const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const { token } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosPublic.get('/admin/users', {
+        const response = await axios.get('http://localhost:8000/admin/users', {
           headers: {
-            Authorization: `Bearer ${user.token}`
+            Authorization: `Bearer ${token}`
           }
         });
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
+        // Handle error or redirect to login page
+        navigate('/');
       }
     };
 
     fetchUsers();
-  }, [user.token]);
+  }, [token, navigate]);
 
-  const handleDelete = async (id) => {
+  const handleDeleteUser = async (id) => {
     try {
-      await axiosPublic.delete(`/admin/users/${id}`, {
+      await axios.delete(`http://localhost:8000/admin/users/${id}`, {
         headers: {
-          Authorization: `Bearer ${user.token}`
+          Authorization: `Bearer ${token}`
         }
       });
       setUsers(users.filter(user => user._id !== id));
@@ -40,27 +42,25 @@ const AdminHome = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
-        {/* head */}
+    <div>
+      <h2>All Users</h2>
+      <table>
         <thead>
           <tr>
-            <th>Index</th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
+          {users.map(user => (
             <tr key={user._id}>
-              <td>{index + 1}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
-                <button onClick={() => handleDelete(user._id)}>Delete</button>
+                <button onClick={() => handleDeleteUser(user._id)}>Delete</button>
               </td>
             </tr>
           ))}
@@ -70,4 +70,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default AdminUsers;
