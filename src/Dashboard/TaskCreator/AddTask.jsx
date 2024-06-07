@@ -42,7 +42,7 @@ const AddTask = () => {
       taskData.user_name = userDisplayName;
       const response = await axiosPublic.post('/tasks', taskData); // Use the correct server URL and port
       toast.success('Task added successfully:', response.data);
-      navigate('/myTask')
+      navigate('/dashboard/myTask')
     } catch (error) {
       console.error('Error adding task:', error);
     }

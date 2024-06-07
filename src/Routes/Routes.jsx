@@ -16,6 +16,7 @@ import MySubmission from '../Dashboard/Worker/MySubmission';
 import TaskToReview from '../Dashboard/TaskCreator/TaskToReview';
 import Payment from '../hooks/Payment/Payment';
 import PrivateRoute from './PrivateRoute';
+import ApprovalList from '../Dashboard/TaskCreator/ApprovalList';
 
 
 export const router = createBrowserRouter([
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
       {
         path:'reviewTask',
         element:<TaskToReview></TaskToReview>
+      },
+      {
+        path:'approveList',
+        element:<ApprovalList></ApprovalList>
       },
       {
         path: 'adminHome',

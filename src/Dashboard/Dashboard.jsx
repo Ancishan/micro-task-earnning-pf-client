@@ -2,14 +2,13 @@ import { Link, NavLink, Outlet } from 'react-router-dom';
 import useRole from '../hooks/useRole';
 import logoimg from '../assets/images.png';
 import { FaHome } from 'react-icons/fa';
-import useAdmin from './Admin/useAdmin';
 import useAuth from '../hooks/UseAuth';
 import { RiLogoutBoxFill } from 'react-icons/ri';
 
 const Dashboard = () => {
   const { logOut } = useAuth()
   const [role] = useRole();
-  const [isAdmin] = useAdmin();
+
 
   const handleLogOut = () => {
     logOut()
@@ -36,6 +35,9 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/reviewTask">Review Task</NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/approveList">Approval List</NavLink>
+              </li>
             </>
           )}
           {role === 'Worker' && (
@@ -60,7 +62,7 @@ const Dashboard = () => {
         <hr />
         <Link className='flex gap-3 items-center mt-4 ml-4' to='/'><FaHome className='text-xl' /> Home</Link>
 
-        <button className='flex gap-3 items-center mt-4 ml-4' onClick={handleLogOut}><RiLogoutBoxFill  className='text-xl'/>Logout</button>
+        <a className='flex gap-3 items-center mt-4 ml-4' onClick={handleLogOut} href="/login"><RiLogoutBoxFill  className='text-xl'/>Logout</a>
       </div>
       <div className="flex-1 p-8">
         <Outlet />

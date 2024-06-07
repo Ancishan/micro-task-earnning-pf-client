@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useAuth from '../../hooks/UseAuth';
-import CheckOutForm from '../../hooks/Payment/CheckOutForm';
-
 
 const TaskToReview = () => {
+    const navigate = useNavigate();
     const { user } = useAuth();
     const axiosPublic = useAxiosPublic();
     const [submissions, setSubmissions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [selectedSubmission, setSelectedSubmission] = useState(null); // Track the selected submission
 
     useEffect(() => {
         const fetchSubmissions = async () => {
@@ -32,8 +31,14 @@ const TaskToReview = () => {
         fetchSubmissions();
     }, [user.email, axiosPublic]);
 
-    const handleApproval = (id, payableAmount, workerEmail) => {
-        setSelectedSubmission({ id, payableAmount, workerEmail }); // Set the selected submission
+    const handleApproval = async (id) => {
+        try {
+            await axiosPublic.put(`/submissions/${id}`, { status: 'approved' });
+            setSubmissions(submissions.filter(submission => submission._id !== id));
+            navigate('/dashboard/approveList'); // Navigate to the approval list page
+        } catch (error) {
+            console.error('Error approving submission:', error);
+        }
     };
 
     const handleRejection = async (id) => {
@@ -69,19 +74,13 @@ const TaskToReview = () => {
                             <td>{submission.task_title}</td>
                             <td>{submission.payable_amount}</td>
                             <td>
-                                <button className="btn btn-primary mr-2" onClick={() => handleApproval(submission._id, submission.payable_amount, submission.worker_email)}>Approve</button>
+                                <button className="btn btn-primary mr-2" onClick={() => handleApproval(submission._id)}>Approve</button>
                                 <button className="btn btn-danger" onClick={() => handleRejection(submission._id)}>Reject</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {selectedSubmission && ( // Render the payment method when a submission is selected
-                <div>
-                    <h2>Payment Method</h2>
-                    <CheckOutForm amount={selectedSubmission.payableAmount} />
-                </div>
-            )}
         </div>
     );
 };

@@ -114,8 +114,10 @@ const MyTask = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <button onClick={() => setEditingTask(task)}><MdEditNote /></button>
-                                            <button className='pl-6' onClick={() => handleDelete(task._id)}><MdDelete /></button>
+                                            <div className='flex justify-center'>
+                                                <button onClick={() => setEditingTask(task)}><MdEditNote /></button>
+                                                <button className='pl-6' onClick={() => handleDelete(task._id)}><MdDelete /></button>
+                                            </div>
                                         </>
                                     )}
                                 </td>
@@ -128,7 +130,7 @@ const MyTask = () => {
                     )}
                 </tbody>
 
-             
+
             </table>
         </div>
     );

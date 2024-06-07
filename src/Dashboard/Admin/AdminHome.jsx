@@ -14,7 +14,7 @@ const AdminHome = () => {
       try {
         const response = await axiosPublic.get('/admin/users', {
           headers: {
-            Authorization: `Bearer ${user.token}`
+            Authorization: `Bearer ${user}`
           }
         });
         setUsers(response.data);
@@ -24,13 +24,13 @@ const AdminHome = () => {
     };
 
     fetchUsers();
-  }, [user.token]);
+  }, [user]);
 
   const handleDelete = async (id) => {
     try {
       await axiosPublic.delete(`/admin/users/${id}`, {
         headers: {
-          Authorization: `Bearer ${user.token}`
+          Authorization: `Bearer ${user}`
         }
       });
       setUsers(users.filter(user => user._id !== id));
