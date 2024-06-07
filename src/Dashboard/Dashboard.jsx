@@ -3,10 +3,19 @@ import useRole from '../hooks/useRole';
 import logoimg from '../assets/images.png';
 import { FaHome } from 'react-icons/fa';
 import useAdmin from './Admin/useAdmin';
+import useAuth from '../hooks/UseAuth';
+import { RiLogoutBoxFill } from 'react-icons/ri';
 
 const Dashboard = () => {
+  const { logOut } = useAuth()
   const [role] = useRole();
   const [isAdmin] = useAdmin();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => { })
+      .catch(error => console.log(error));
+  };
 
   return (
     <div className="flex">
@@ -49,7 +58,9 @@ const Dashboard = () => {
           )}
         </ul>
         <hr />
-        <Link className='flex gap-3 items-center mt-4 ml-4' to='/'><FaHome /> Home</Link>
+        <Link className='flex gap-3 items-center mt-4 ml-4' to='/'><FaHome className='text-xl' /> Home</Link>
+
+        <button className='flex gap-3 items-center mt-4 ml-4' onClick={handleLogOut}><RiLogoutBoxFill  className='text-xl'/>Logout</button>
       </div>
       <div className="flex-1 p-8">
         <Outlet />

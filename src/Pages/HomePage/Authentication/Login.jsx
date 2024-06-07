@@ -59,11 +59,11 @@ const Login = () => {
             const user = result.user;
             const name = user.displayName;
             const email = user.email;
-            const image_url = user.photoURL;
+            const photoURL = user.photoURL;
             const role = 'Worker';
     
             // Send user info including role to your backend
-            await axiosPublic.post('/users', { name, email, role, image_url });
+            await axiosPublic.post('/users', { name, email, role, photoURL });
     
             navigate('/');
             toast.success('Signup Successful');

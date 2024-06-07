@@ -15,7 +15,8 @@ import TaskDetails from '../Dashboard/Worker/TaskDetails';
 import MySubmission from '../Dashboard/Worker/MySubmission';
 import TaskToReview from '../Dashboard/TaskCreator/TaskToReview';
 import Payment from '../hooks/Payment/Payment';
-import AdminUsers from '../Dashboard/Admin/AdminUsers';
+import PrivateRoute from './PrivateRoute';
+
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,8 @@ export const router = createBrowserRouter([
       },
       {
         path: '/home',
-        element: <Home />,
+        element:<PrivateRoute> <Home /></PrivateRoute>
+        // element: <Home />,
       },
       {
         path: '/login',
@@ -43,6 +45,7 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard />,
+    // element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
       {
         path: 'workerHome',
