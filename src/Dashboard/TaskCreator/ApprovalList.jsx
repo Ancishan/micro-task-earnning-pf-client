@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ApprovalList = () => {
   const [approvedSubmissions, setApprovedSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchApprovedSubmissions = async () => {
@@ -30,15 +32,8 @@ const ApprovalList = () => {
     fetchApprovedSubmissions();
   }, []);
 
-  const handlePayment = async (id) => {
-    try {
-      await axios.post('http://localhost:8000/payments', { submissionId: id });
-      // Optionally, update the list or notify the user of successful payment
-      alert('Payment processed successfully');
-    } catch (error) {
-      console.error('Error processing payment:', error);
-      alert('Failed to process payment');
-    }
+  const handlePayment = (id, amount) => {
+    navigate(`/payment?amount=${amount}`);
   };
 
   if (loading) {
@@ -75,7 +70,7 @@ const ApprovalList = () => {
                 <td>
                   <button
                     className="btn btn-primary"
-                    onClick={() => handlePayment(submission._id)}
+                    onClick={() => handlePayment(submission._id, submission.payable_amount)}
                   >
                     Pay
                   </button>

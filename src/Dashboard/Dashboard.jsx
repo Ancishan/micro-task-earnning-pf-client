@@ -38,6 +38,10 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/approveList">Approval List</NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/pay">Pay List</NavLink>
+              </li>
+              
             </>
           )}
           {role === 'Worker' && (

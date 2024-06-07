@@ -17,6 +17,7 @@ import TaskToReview from '../Dashboard/TaskCreator/TaskToReview';
 import Payment from '../hooks/Payment/Payment';
 import PrivateRoute from './PrivateRoute';
 import ApprovalList from '../Dashboard/TaskCreator/ApprovalList';
+import Pay from '../hooks/Payment/Pay';
 
 
 export const router = createBrowserRouter([
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
         path: '/register',
         element: <Registration />,
       },
+      
     ],
   },
   {
@@ -61,10 +63,8 @@ export const router = createBrowserRouter([
         path: 'view/:id',
         element: <TaskDetails />,
       },
-      {
-        path: 'payment',
-        element: <Payment/>,
-      },
+   
+    
       {
         path: 'mySubmission',
         element: <MySubmission />,
@@ -90,10 +90,22 @@ export const router = createBrowserRouter([
         element:<ApprovalList></ApprovalList>
       },
       {
+        path: 'payment',
+        element: <Payment/>,
+      },
+      {
+        path: 'pay',
+        element: <Pay/>,
+      },
+      {
         path: 'adminHome',
         element: <AdminHome />
       }
       
     ],
+  },
+  {
+    path: '/payment',
+    element: <Payment />,
   },
 ]);
