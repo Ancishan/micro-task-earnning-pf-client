@@ -1,6 +1,5 @@
-import React from 'react';
+
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import axios from 'axios';
 import useAxiosPublic from '../useAxiosPublic';
 
 const CheckOutForm = ({ amount }) => {
@@ -21,15 +20,15 @@ const CheckOutForm = ({ amount }) => {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: 'card',
         card: cardElement,
-      }, {
         billing_details: {
-          email: 'test@example.com'
-        }
+          email: 'test@example.com',
+        },
       });
 
       if (error) {
         console.error('Stripe error:', error);
-        throw new Error(error.message);
+        alert(`Stripe error: ${error.message}`);
+        return;
       }
 
       const { id } = paymentMethod;
@@ -52,7 +51,22 @@ const CheckOutForm = ({ amount }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement />
+      <CardElement
+        options={{
+          style: {
+            base: {
+              fontSize: '16px',
+              color: '#424770',
+              '::placeholder': {
+                color: '#aab7c4',
+              },
+            },
+            invalid: {
+              color: '#9e2146',
+            },
+          },
+        }}
+      />
       <button type="submit" disabled={!stripe}>
         Pay ${amount}
       </button>
