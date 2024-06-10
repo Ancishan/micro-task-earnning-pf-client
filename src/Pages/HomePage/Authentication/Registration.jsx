@@ -145,7 +145,7 @@ const Registration = () => {
               <button
                 disabled={loading}
                 type="submit"
-                className="bg-rose-500 w-full rounded-md py-3 text-white"
+                className="bg-gray-500-500 w-full rounded-md py-3 text-white"
               >
                 {loading ? <TbFidgetSpinner className="animate-spin m-auto" /> : 'Sign Up'}
               </button>

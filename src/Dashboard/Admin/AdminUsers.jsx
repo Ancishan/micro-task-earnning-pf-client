@@ -12,7 +12,7 @@ const AdminUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/admin/users', {
+        const response = await axios.get('https://micro-task-earnning-pf-server.vercel.app/admin/users', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -30,7 +30,7 @@ const AdminUsers = () => {
 
   const handleDeleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/admin/users/${id}`, {
+      await axios.delete(`https://micro-task-earnning-pf-server.vercel.app/admin/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

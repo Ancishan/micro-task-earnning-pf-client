@@ -11,7 +11,7 @@ const ApprovalList = () => {
   useEffect(() => {
     const fetchApprovedSubmissions = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/submissions', {
+        const response = await axios.get('https://micro-task-earnning-pf-server.vercel.app/submissions', {
           params: { status: 'approved' },
         });
 

@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
       {
         path: 'taskList',
         element: <TaskList />,
-        loader: () => fetch('http://localhost:8000/tasks'),
+        loader: () => fetch('https://micro-task-earnning-pf-server.vercel.app/tasks'),
       },
       {
         path: 'view/:id',

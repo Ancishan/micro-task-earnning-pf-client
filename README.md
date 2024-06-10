@@ -1,8 +1,18 @@
-# React + Vite
+Admin: shan@gmail.com
+password: 123456
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ReaThe packages that i have installed in the project are:
 
-Currently, two official plugins are available:
+1.react-router-dom: npm install react-router-dom
+2.@tanstack query
+ 2.firebase : npm install firebase
+ 3.Tailwind CSS: npm install tailwindcss 
+4.npm install @daisyscript/core @daisyscript/react
+5.React Icons: npm install react-icons 
+6.react-intersection-observer : react-intersection-observer 
+ 7.React lottie animation: npm install --save lottie-react 
+ 8. react-awesome-reveal install: npm install react-awesome-reveal 
+ 9. Sweet Alert 2 Install: npm i react-sweetalert2
+ 10.Toastify .Install:npm i react-toastify
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+and for live server deploy 1.vercel and firebase host .Hosting URL: https://micro-task-earnning-pf-client.web.app
