@@ -1,5 +1,3 @@
-Admin: shan@gmail.com
-password: 123456
 
 # ReaThe packages that i have installed in the project are:
 
