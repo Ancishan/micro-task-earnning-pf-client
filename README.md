@@ -1,16 +1,18 @@
 
 # ReaThe packages that i have installed in the project are:
 
-1.react-router-dom: npm install react-router-dom
-2.@tanstack query
- 2.firebase : npm install firebase
- 3.Tailwind CSS: npm install tailwindcss 
-4.npm install @daisyscript/core @daisyscript/react
-5.React Icons: npm install react-icons 
-6.react-intersection-observer : react-intersection-observer 
- 7.React lottie animation: npm install --save lottie-react 
- 8. react-awesome-reveal install: npm install react-awesome-reveal 
- 9. Sweet Alert 2 Install: npm i react-sweetalert2
- 10.Toastify .Install:npm i react-toastify
+- **React Router DOM**: `npm install react-router-dom`
+- **TanStack Query**: `npm install @tanstack/react-query`
+- **Firebase**: `npm install firebase`
+- **Tailwind CSS**: `npm install tailwindcss`
+- **DaisyScript**: `npm install @daisyscript/core @daisyscript/react`
+- **React Icons**: `npm install react-icons`
+- **React Intersection Observer**: `npm install react-intersection-observer`
+- **React Lottie Animation**: `npm install --save lottie-react`
+- **React Awesome Reveal**: `npm install react-awesome-reveal`
+- **Sweet Alert 2**: `npm install react-sweetalert2`
+- **React Toastify**: `npm install react-toastify`
+
+#project goal: In my project, it is demonstrated that users can earn coins by completing tasks and then use those coins to earn money. A user can create tasks if they wish, and they can also work as a worker if they choose to.
 
 and for live server deploy 1.vercel and firebase host .Hosting URL: https://micro-task-earnning-pf-client.web.app
