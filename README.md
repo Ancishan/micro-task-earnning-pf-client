@@ -13,6 +13,10 @@
 - **Sweet Alert 2**: `npm install react-sweetalert2`
 - **React Toastify**: `npm install react-toastify`
 
-#project goal: In my project, it is demonstrated that users can earn coins by completing tasks and then use those coins to earn money. A user can create tasks if they wish, and they can also work as a worker if they choose to.
+- **project goal: In my project, it is demonstrated that users can earn coins by completing tasks and then use those coins to earn money. A user can create tasks if they wish, and they can also work as a worker if they choose to.
 
-and for live server deploy 1.vercel and firebase host .Hosting URL: https://micro-task-earnning-pf-client.web.app
+- **project Feature:
+  1.A user can create a task and get it done.
+  2.Another user can become a worker and complete the task.
+  3.The worker will receive payment from the task creator for completing the task.
+- **and for live server deploy 1.vercel and firebase host .Hosting URL: https://micro-task-earnning-pf-client.web.app
