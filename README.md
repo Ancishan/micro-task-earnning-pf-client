@@ -20,3 +20,7 @@
   2.Another user can become a worker and complete the task.
   3.The worker will receive payment from the task creator for completing the task.
 - **and for live server deploy 1.vercel and firebase host .Hosting URL: https://micro-task-earnning-pf-client.web.app
+
+-  Running Local host:
+- npm Install
+- npm run dev
