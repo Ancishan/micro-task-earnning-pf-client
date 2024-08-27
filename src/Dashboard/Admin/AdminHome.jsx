@@ -1,71 +1,76 @@
-import { useEffect, useState } from 'react';
-
-
-import useAuth from '../../hooks/UseAuth';
-import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 
 const AdminHome = () => {
-  const [users, setUsers] = useState([]);
-  const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchRequests = async () => {
       try {
-        const response = await axiosPublic.get('/admin/users', {
-          headers: {
-            Authorization: `Bearer ${user}`
-          }
-        });
-        setUsers(response.data);
+        const { data } = await axios.get('http://localhost:5000/admin/verification-requests');
+        setRequests(data);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        toast.error('Failed to fetch verification requests');
       }
     };
+    fetchRequests();
+  }, []);
 
-    fetchUsers();
-  }, [user]);
-
-  const handleDelete = async (id) => {
+  const handleRequest = async (id, status) => {
     try {
-      await axiosPublic.delete(`/admin/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user}`
-        }
-      });
-      setUsers(users.filter(user => user._id !== id));
+      await axios.put(`http://localhost:5000/admin/verification-requests/${id}`, { status });
+      setRequests((prev) => prev.map((req) => (req._id === id ? { ...req, status } : req)));
+      toast.success('Request updated successfully');
     } catch (error) {
-      console.error('Error deleting user:', error);
+      toast.error('Failed to update request');
     }
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
-        {/* head */}
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user._id}>
-              <td>{index + 1}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>
-                <button onClick={() => handleDelete(user._id)}>Delete</button>
-              </td>
+    <div className="container mx-auto py-10">
+      <Helmet>
+        <title>Admin Dashboard - Micro Tasking</title>
+      </Helmet>
+      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+      <div className="overflow-x-auto">
+        <table className="table-auto w-full">
+          <thead>
+            <tr>
+              <th>User Email</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {requests.map((request) => (
+              <tr key={request._id}>
+                <td>{request.userEmail}</td>
+                <td>{request.status}</td>
+                <td>
+                  {request.status === 'pending' && (
+                    <>
+                      <button
+                        className="btn btn-success mr-2"
+                        onClick={() => handleRequest(request._id, 'approved')}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleRequest(request._id, 'rejected')}
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+// Registration.jsx
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../../hooks/UseAuth';
@@ -21,23 +22,26 @@ const Registration = () => {
     const email = form.email.value;
     const password = form.password.value;
     const image = form.image.files[0];
+    const skill = form.skill.value;
 
     try {
       setLoading(true);
       const photoURL = await imageUpload(image);
       const result = await createUser(email, password);
       await updateUserProfile(name, photoURL);
-      await axiosPublic.post('/users', { name, email, role, photoURL });
+      await axiosPublic.post('/users', { name, email, role, photoURL, skill });
 
-      // Manually update the user state
+      // Notify the user to check their email for verification
+      toast.success('Signup Successful! Please check your email to verify your account.');
+
+      // Manually update the user state if needed
       setUser({
         ...result.user,
         displayName: name,
         photoURL: photoURL,
       });
 
-      navigate('/');
-      toast.success('Signup Successful');
+      navigate('/login');
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -54,8 +58,16 @@ const Registration = () => {
       const email = user.email;
       const photoURL = user.photoURL;
       const role = 'Worker';
+      const skill = ''; // Handle skill appropriately
 
-      await axiosPublic.post('/users', { name, email, role, photoURL });
+      await axiosPublic.post('/users', { name, email, role, photoURL, skill });
+
+      // Send email verification if not verified
+      if (user && !user.emailVerified) {
+        // Using the verifyEmail function from AuthContext
+        await verifyEmail();
+        toast.success('Google Signup Successful! Please check your email to verify your account.');
+      }
 
       // Manually update the user state
       setUser({
@@ -65,7 +77,6 @@ const Registration = () => {
       });
 
       navigate('/');
-      toast.success('Signup Successful');
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -91,7 +102,6 @@ const Registration = () => {
                   type="text"
                   name="name"
                   id="name"
-                  required
                   placeholder="Enter Your Name Here"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
@@ -140,12 +150,22 @@ const Registration = () => {
                   <option>TaskCreator</option>
                 </select>
               </div>
+              <div>
+                <label htmlFor="skill" className="block mb-2 text-sm">Skill</label>
+                <input
+                  type="text"
+                  name="skill"
+                  id="skill"
+                  placeholder="Skill"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                />
+              </div>
             </div>
             <div>
               <button
                 disabled={loading}
                 type="submit"
-                className="bg-gray-500-500 w-full rounded-md py-3 text-white"
+                className="bg-black w-full rounded-md py-3 text-white"
               >
                 {loading ? <TbFidgetSpinner className="animate-spin m-auto" /> : 'Sign Up'}
               </button>

@@ -5,6 +5,7 @@ import logoimg from '../../assets/images.png';
 import icon from '../../assets/placeholder.jpg';
 
 
+
 const NavBar = () => {
   const { user, logOut } = useAuth();
   const [role, isLoading] = useRole();
@@ -57,7 +58,7 @@ const NavBar = () => {
       <div className="navbar-end">
         {user ? (
           <div className="flex items-center space-x-2">
-            <span className="text-white">Coins: {user.coins}</span>
+            {/* <span className="text-white">Coins: {user.coins}</span> */}
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">

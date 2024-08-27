@@ -18,7 +18,9 @@ import Payment from '../hooks/Payment/Payment';
 import PrivateRoute from './PrivateRoute';
 import ApprovalList from '../Dashboard/TaskCreator/ApprovalList';
 import Pay from '../hooks/Payment/Pay';
-
+import CompleteTask from '../Dashboard/Worker/CompleteTask';
+import GetWork from '../Dashboard/TaskCreator/GetWork';
+import WorkerProfile from '../Dashboard/Worker/WorkerProfile';
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +33,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/home',
-        element:<PrivateRoute> <Home /></PrivateRoute>
-        // element: <Home />,
+        element: <PrivateRoute><Home /></PrivateRoute>,
       },
       {
         path: '/login',
@@ -42,13 +43,11 @@ export const router = createBrowserRouter([
         path: '/register',
         element: <Registration />,
       },
-      
     ],
   },
   {
     path: '/dashboard',
     element: <Dashboard />,
-    // element: <PrivateRoute><Dashboard /></PrivateRoute>,
     children: [
       {
         path: 'workerHome',
@@ -57,14 +56,12 @@ export const router = createBrowserRouter([
       {
         path: 'taskList',
         element: <TaskList />,
-        loader: () => fetch('https://micro-task-earnning-pf-server.vercel.app/tasks'),
+        loader: () => fetch('http://localhost:8000/tasks'),
       },
       {
         path: 'view/:id',
         element: <TaskDetails />,
       },
-   
-    
       {
         path: 'mySubmission',
         element: <MySubmission />,
@@ -82,30 +79,25 @@ export const router = createBrowserRouter([
         element: <MyTask />,
       },
       {
-        path:'reviewTask',
-        element:<TaskToReview></TaskToReview>
+        path: 'reviewTask',
+        element: <TaskToReview />,
       },
       {
-        path:'approveList',
-        element:<ApprovalList></ApprovalList>
+        path: 'approveList',
+        element: <ApprovalList />,
       },
       {
         path: 'payment',
-        element: <Payment/>,
+        element: <Payment />,
       },
       {
-        path: 'pay',
-        element: <Pay/>,
+         path:"workerProfile",
+          element:<WorkerProfile /> 
       },
       {
         path: 'adminHome',
-        element: <AdminHome />
-      }
-      
+        element: <AdminHome />,
+      },
     ],
-  },
-  {
-    path: '/payment',
-    element: <Payment />,
   },
 ]);

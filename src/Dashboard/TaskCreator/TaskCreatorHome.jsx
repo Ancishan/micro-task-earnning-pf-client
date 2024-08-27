@@ -11,16 +11,16 @@ const TaskCreatorHome = () => {
             <div className="flex justify-end gap-8 items-center">
 
                 <div>
-                    <h3>Available Coin: </h3>
+                    {/* <h3>Name: {user?.displayName}</h3> */}
                     <h2>User Role:{role} </h2>
                 </div>
                 <div>
                     <img className="w-12 h-12 rounded-full" src={user?.photoURL} alt="" />
                     <h2>{user?.displayName}</h2>
                 </div>
-                <div className="text-3xl">
+                {/* <div className="text-3xl">
                     <Link to=''> <IoNotifications /></Link>
-                </div>
+                </div> */}
             </div>
             {/*  */}
         </div>

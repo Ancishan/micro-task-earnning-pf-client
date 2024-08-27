@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useAuth from '../../hooks/UseAuth';
+import { Link } from 'react-router-dom';
 
 
 const MySubmission = () => {
@@ -42,6 +43,7 @@ const MySubmission = () => {
               <th className="px-4 py-2">Submission Details</th>
               <th className="px-4 py-2">Status</th>
               <th className="px-4 py-2">Submission Date</th>
+              <th className="px-4 py-2">Submit Your Task</th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +54,7 @@ const MySubmission = () => {
                 <td className="border px-4 py-2">{submission.submission_details}</td>
                 <td className="border px-4 py-2">{submission.status}</td>
                 <td className="border px-4 py-2">{new Date(submission.current_date).toLocaleDateString()}</td>
+                <td><input type="text" /></td>
               </tr>
             ))}
           </tbody>

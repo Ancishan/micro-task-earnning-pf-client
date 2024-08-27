@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import useRole from '../hooks/useRole';
 import logoimg from '../assets/images.png';
 import { FaHome } from 'react-icons/fa';
@@ -6,14 +6,18 @@ import useAuth from '../hooks/UseAuth';
 import { RiLogoutBoxFill } from 'react-icons/ri';
 import { Helmet } from 'react-helmet-async';
 
+
 const Dashboard = () => {
   const { logOut } = useAuth()
   const [role] = useRole();
+  const navigate = useNavigate();
 
-
-  const handleLogOut = () => {
+  const handleLogOut = (event) => {
+    event.preventDefault(); 
     logOut()
-      .then(() => { })
+      .then(() => { 
+        navigate('/login');
+      })
       .catch(error => console.log(error));
   };
 
@@ -44,8 +48,14 @@ const Dashboard = () => {
                   <NavLink to="/dashboard/approveList">Approval List</NavLink>
                 </li>
                 <li>
+                  <NavLink to='/dashboard/workerProfile'>WorkerProfile</NavLink>
+                </li>
+                <li>
                   <NavLink to="/dashboard/pay">Pay List</NavLink>
                 </li>
+                {/* <li>
+                  <NavLink to="/dashboard/prog">Get Work</NavLink>
+                </li> */}
 
               </>
             )}
@@ -60,6 +70,9 @@ const Dashboard = () => {
                 <li>
                   <NavLink to="/dashboard/mySubmission">My Submission</NavLink>
                 </li>
+                {/* <li>
+                  <NavLink to="/dashboard/work">CompleteTask</NavLink>
+                </li> */}
               </>
             )}
             {role === 'admin' && (
@@ -70,8 +83,9 @@ const Dashboard = () => {
           </ul>
           <hr />
           <Link className='flex gap-3 items-center mt-4 ml-4' to='/'><FaHome className='text-xl' /> Home</Link>
+          <button className='flex gap-3 items-center mt-4 ml-4' onClick={handleLogOut}><RiLogoutBoxFill className='text-xl' />Logout</button>
 
-          <a className='flex gap-3 items-center mt-4 ml-4' onClick={handleLogOut} href="/login"><RiLogoutBoxFill className='text-xl' />Logout</a>
+          {/* <a className='flex gap-3 items-center mt-4 ml-4' onClick={handleLogOut} href="/login"><RiLogoutBoxFill className='text-xl' />Logout</a> */}
         </div>
         <div className="flex-1 p-8">
           <Outlet />

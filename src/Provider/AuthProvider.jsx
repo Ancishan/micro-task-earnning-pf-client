@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -22,14 +23,24 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
+  const createUser = async (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    // Send verification email after account creation
+    await verifyEmail();
+    return userCredential;
   };
 
-  const signIn = (email, password) => {
+  const signIn = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    const user = result.user;
+    // Check if the email is verified
+    if (!user.emailVerified) {
+      await signOut(auth); // Sign out if email is not verified
+      throw new Error('Your email is not verified. Please verify your email to log in.');
+    }
+    return result;
   };
 
   const signInWithGoogle = () => {
@@ -69,6 +80,13 @@ const AuthProvider = ({ children }) => {
     return data;
   };
 
+  // Function to send email verification
+  const verifyEmail = () => {
+    if (auth.currentUser) {
+      return sendEmailVerification(auth.currentUser);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
@@ -93,6 +111,7 @@ const AuthProvider = ({ children }) => {
     resetPassword,
     logOut,
     updateUserProfile,
+    verifyEmail, // Expose verifyEmail function
   };
 
   return (

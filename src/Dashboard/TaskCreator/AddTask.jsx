@@ -70,6 +70,7 @@ const AddTask = () => {
             <span className="label-text">Task Detail</span>
           </label>
           <textarea
+          type="text"
             name="task_detail"
             value={taskData.task_detail}
             onChange={handleChange}

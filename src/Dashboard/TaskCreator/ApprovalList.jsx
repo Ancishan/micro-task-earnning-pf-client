@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ApprovalList = () => {
   const [approvedSubmissions, setApprovedSubmissions] = useState([]);
@@ -32,17 +32,17 @@ const ApprovalList = () => {
     fetchApprovedSubmissions();
   }, []);
 
-  const handlePayment = (id, amount) => {
-    navigate(`/payment?amount=${amount}`);
-  };
+  // const handlePayment = (id, amount) => {
+  //   navigate(`/payment?amount=${amount}`);
+  // };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   return (
     <div>
@@ -57,6 +57,7 @@ const ApprovalList = () => {
               <th>Submission Details</th>
               <th>Payable Amount</th>
               <th>Actions</th>
+              <th>Get Your Task</th>
             </tr>
           </thead>
           <tbody>
@@ -67,14 +68,7 @@ const ApprovalList = () => {
                 <td>{submission.task_title}</td>
                 <td>{submission.submission_details}</td>
                 <td>{submission.payable_amount}</td>
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handlePayment(submission._id, submission.payable_amount)}
-                  >
-                    Pay
-                  </button>
-                </td>
+              <td>Click here</td>
               </tr>
             ))}
           </tbody>
