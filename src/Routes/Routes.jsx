@@ -21,6 +21,8 @@ import Pay from '../hooks/Payment/Pay';
 import CompleteTask from '../Dashboard/Worker/CompleteTask';
 import GetWork from '../Dashboard/TaskCreator/GetWork';
 import WorkerProfile from '../Dashboard/Worker/WorkerProfile';
+import FileShow from '../Component/fileUpload/FileShow';
+import UploadFile from '../Component/fileUpload/UploadFile';
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +87,14 @@ export const router = createBrowserRouter([
       {
         path: 'approveList',
         element: <ApprovalList />,
+      },
+      {
+        path: 'fileShow',
+        element: <FileShow></FileShow>,
+      },
+      {
+        path: 'fileUpload',
+        element: <UploadFile></UploadFile>,
       },
       {
         path: 'payment',
